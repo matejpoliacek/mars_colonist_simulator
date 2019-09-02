@@ -13,7 +13,8 @@ Created on Fri Mar 29 17:28:00 2019
 global SIM_LENGTH # number of days for which the simulation runs
 
 global SHIP_CAPACITY # how many astronauts come every 2 years from earth
-global TRAVEL_TIME  # travel time from Earth to Mars (unused for now)
+global TRAVEL_TIME  # travel time from Earth to Mars
+global CREW_RATIO   # male to female ratio of crew
 
 global DEATH_THRESH # age (years) after which the simulation starts checking for natural death  
 
@@ -34,6 +35,7 @@ class Sim_params:
     def __init__(self):
         self.SHIP_CAPACITY = 80
         self.TRAVEL_TIME = 200 
+        self.CREW_RATIO = 1.0
         self.COOLDOWN = 365
         self.MAX_PREG = 100
         self.NEWGEN_PERIOD = 365 * 6
@@ -51,6 +53,9 @@ class Sim_params:
         
     def getTRAVEL_TIME(self):
         return self.TRAVEL_TIME
+    
+    def getCREW_RATIO(self):
+        return self.CREW_RATIO
     
     def getCOOLDOWN(self):
         return self.COOLDOWN
@@ -86,6 +91,9 @@ class Sim_params:
         
     def setTRAVEL_TIME(self, time):
         self.TRAVEL_TIME = time
+        
+    def setCREW_RATIO(self, ratio):
+        self.CREW_RATIO = ratio
     
     def setCOOLDOWN(self, cool):
         self.COOLDOWN = cool

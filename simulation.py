@@ -13,14 +13,19 @@ import colonists as col
 
 
 # TODO: move to colony_utils.py
-def landing(params):
+def arrivalFromEarth(params):
     crew = []
-    for x in range(0, params.getSHIP_CAPACITY()//2):
-        a = col.Astronaut("m", params)
-        b = col.Astronaut("f", params)
-        crew.append(a)
-        crew.append(b)
     
+    male_crew,female_crew = util.ratioCalculator(params.getSHIP_CAPACITY(), params.getCREW_RATIO())
+    
+    for x in range(0, male_crew):
+        a = col.Astronaut("m", params)
+        crew.append(a)
+    
+    for y in range(0, female_crew):
+        a = col.Astronaut("f", params)
+        crew.append(a)
+
     return crew
 
 def simulation(params, label):
@@ -32,7 +37,7 @@ def simulation(params, label):
 
     for day in days:
         if (day % (26*30) == 0):
-            colony = colony + landing(params)
+            colony = colony + arrivalFromEarth(params)
                 
         new_colonists = []
         for x in colony:

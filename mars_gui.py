@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 import simulation as sim
 import colonysim_params as ps
+import colony_util as util
 
 global params
 params = ps.Sim_params()
@@ -27,7 +28,8 @@ class MyWindow(QtWidgets.QMainWindow):
         #Pre-fill lineEdits with defaults
         self.ui.lineEdit_simLength.setText(str(params.getSIM_LENGTH()))
         self.ui.lineEdit_capacity.setText(str(params.getSHIP_CAPACITY()))
-        self.ui.lineEdit_transit.setText(str(params.getTRAVEL_TIME()))
+        self.ui.lineEdit_arrival.setText(str(params.getTRAVEL_TIME()))
+        self.ui.lineEdit_crewRatio.setText(str(params.getCREW_RATIO()))
         self.ui.lineEdit_deathThresh.setText(str(params.getDEATH_THRESH()))
         self.ui.lineEdit_cooldown.setText(str(params.getCOOLDOWN()))
         self.ui.lineEdit_maxPreg.setText(str(params.getMAX_PREG()))
@@ -39,7 +41,10 @@ class MyWindow(QtWidgets.QMainWindow):
         
         # Text change functions
         self.calcYears()
+        self.showCrewRatios()
         self.ui.lineEdit_simLength.textChanged.connect(self.calcYears)
+        self.ui.lineEdit_capacity.textChanged.connect(self.showCrewRatios)
+        self.ui.lineEdit_crewRatio.textChanged.connect(self.showCrewRatios)
         
         # Button functions
         self.ui.pushButtonStart.clicked.connect(self.pushButtonStartClicked)
@@ -47,7 +52,7 @@ class MyWindow(QtWidgets.QMainWindow):
     def set_params(self):
         params.setSIM_LENGTH(int(self.ui.lineEdit_simLength.text()))
         params.setSHIP_CAPACITY(int(self.ui.lineEdit_capacity.text()))
-        params.setTRAVEL_TIME(int(self.ui.lineEdit_transit.text()))
+        params.setTRAVEL_TIME(int(self.ui.lineEdit_arrival.text()))
         params.setDEATH_THRESH(int(self.ui.lineEdit_deathThresh.text()))
         params.setCOOLDOWN(int(self.ui.lineEdit_cooldown.text()))
         params.setMAX_PREG(int(self.ui.lineEdit_maxPreg.text()))
@@ -94,6 +99,16 @@ class MyWindow(QtWidgets.QMainWindow):
             self.ui.label_simYears.setText("= " + str(round(yrs, 2)) + " years")
         else: 
             self.ui.label_simYears.setText("= N/A")
+            
+    def showCrewRatios(self):
+        capacity = self.ui.lineEdit_capacity.text()
+        ratio = self.ui.lineEdit_crewRatio.text()
+        
+        if ratio and capacity:
+            male_crew,female_crew = util.ratioCalculator(int(capacity), float(ratio))
+            self.ui.label_crewRatioDisplay.setText("= " + str(round(male_crew, 2)) + " M, " + str(round(female_crew, 2)) + " F crew members")
+        else: 
+            self.ui.label_crewRatioDisplay.setText("= N/A, set ratio")
         
 if __name__== '__main__':
     app = QtWidgets.QApplication(sys.argv)

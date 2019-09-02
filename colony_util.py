@@ -26,3 +26,10 @@ def checkBirthProb(preg):
     # draw a random decimal between 0 and 1
     # return true if smaller than the resulting probability
     return random.random() < prob
+    
+def ratioCalculator(capacity, ratio):
+
+    male_crew = int((ratio/(ratio + 1)) * capacity)
+    female_crew = capacity - male_crew
+    
+    return male_crew, female_crew
