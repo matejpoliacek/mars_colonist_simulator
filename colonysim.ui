@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>967</width>
-    <height>611</height>
+    <height>672</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -26,7 +26,7 @@
       <x>10</x>
       <y>10</y>
       <width>932</width>
-      <height>572</height>
+      <height>605</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -61,6 +61,30 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
+        <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>SIMULATION STAGES</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="listSimStages">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
@@ -87,42 +111,21 @@
          </property>
         </widget>
        </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="9" column="0">
-        <widget class="QLabel" name="labelLifeHeader">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
+       <item>
+        <widget class="QPushButton" name="pushButtonSaveResult">
          <property name="text">
-          <string>Life Parameters</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <string>Save Population</string>
          </property>
         </widget>
        </item>
-       <item row="10" column="0">
-        <layout class="QFormLayout" name="formLayout_5">
-         <item row="0" column="0">
-          <widget class="QLabel" name="labelDeathThresh">
-           <property name="text">
-            <string>Death Threshold</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_deathThresh"/>
-         </item>
-        </layout>
-       </item>
-       <item row="12" column="0">
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3"/>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="14" column="0">
         <layout class="QFormLayout" name="formLayout_2">
          <item row="0" column="0">
           <widget class="QLabel" name="labelCooldown">
@@ -196,7 +199,21 @@
          </item>
         </layout>
        </item>
-       <item row="11" column="0">
+       <item row="5" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="labelTargetPop">
+           <property name="text">
+            <string>Target Population</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_targetPop"/>
+         </item>
+        </layout>
+       </item>
+       <item row="13" column="0">
         <widget class="QLabel" name="labelRepro">
          <property name="font">
           <font>
@@ -213,45 +230,35 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
+       <item row="9" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
-          <widget class="QLabel" name="labelSimLength">
+          <widget class="QLabel" name="labelAstroMinAge">
            <property name="text">
-            <string>Sim Length</string>
+            <string>Astronaut Min Age</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_simLength"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_simYears">
-           <property name="text">
-            <string>= 0 years</string>
+          <widget class="QLineEdit" name="lineEdit_AstroMinAge">
+           <property name="inputMethodHints">
+            <set>Qt::ImhNone</set>
            </property>
           </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelAstroMaxAge">
+           <property name="text">
+            <string>Astronaut Max Age</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_AstroMaxAge"/>
          </item>
         </layout>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelParam">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>PARAMETERS</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
+       <item row="10" column="0">
         <layout class="QFormLayout" name="formLayout">
          <item row="2" column="0">
           <widget class="QLabel" name="labelCrewRatio">
@@ -275,87 +282,7 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="labelTransitHeader">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Transit Parameters</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelSimHeader">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Simulation Parameters</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="0">
-        <widget class="QPushButton" name="pushButtonHelp">
-         <property name="text">
-          <string>HELP</string>
-         </property>
-        </widget>
-       </item>
-       <item row="44" column="0">
-        <widget class="QPushButton" name="pushButtonStart">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>START SIMULATION</string>
-         </property>
-        </widget>
-       </item>
-       <item row="43" column="0">
-        <spacer name="verticalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="46" column="0">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="6" column="0">
+       <item row="8" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -379,6 +306,179 @@
           </layout>
          </item>
         </layout>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="labelLifeHeader">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Life Parameters</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelParam">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>PARAMETERS</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="46" column="0">
+        <widget class="QPushButton" name="pushButtonStart">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>START SIMULATION</string>
+         </property>
+        </widget>
+       </item>
+       <item row="45" column="0">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelSimHeader">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Simulation Parameters</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="radioButtonPop">
+           <property name="text">
+            <string>Specify Sim Length</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButtonDays">
+           <property name="text">
+            <string>Specify Target Population</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="4" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="labelSimLength">
+           <property name="text">
+            <string>Sim Length</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_simLength"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_simYears">
+           <property name="text">
+            <string>= 0 years</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="48" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="12" column="0">
+        <layout class="QFormLayout" name="formLayout_5">
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelDeathThresh">
+           <property name="text">
+            <string>Death Threshold</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEdit_deathThresh"/>
+         </item>
+        </layout>
+       </item>
+       <item row="15" column="0">
+        <widget class="QPushButton" name="pushButtonHelp">
+         <property name="text">
+          <string>HELP</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="labelTransitHeader">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Transit Parameters</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

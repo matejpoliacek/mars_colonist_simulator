@@ -12,8 +12,8 @@ Created on Fri Mar 29 17:28:00 2019
 '''
 global SIM_LENGTH # number of days for which the simulation runs
 
-global SHIP_CAPACITY # how many astronauts come every 2 years from earth
-global TRAVEL_TIME  # travel time from Earth to Mars
+global SHIP_CAPACITY # how many astronauts come with every transit
+global TRAVEL_TIME  # how many days between arrivals
 global CREW_RATIO   # male to female ratio of crew
 
 global DEATH_THRESH # age (years) after which the simulation starts checking for natural death  
@@ -25,6 +25,11 @@ global NEWGEN_WINDOW # no. of days within which new pregnancies can be started e
 global PREG_THRESH # days after which the simulation starts checking if birth has taken place or not
 global PREG_AGE_MAX # maximum childbearing age 
 global PREG_AGE_MIN # minimum childbearing age 
+
+global START_POP # population at the start of the simulation
+global TARGET_POP # population to be reached
+global ASTRO_MIN_AGE # minimum age of arriving astronauts
+global ASTRO_MAX_AGE # maximumx age of arriving astronauts
 '''      
     
 # Class holding all the parameters
@@ -45,7 +50,10 @@ class Sim_params:
         self.DEATH_THRESH = 55
         self.PREG_AGE_MAX = 50
         self.PREG_AGE_MIN = 30
-
+        self.START_POP = 0
+        self.TARGET_POP = 0
+        self.ASTRO_MIN_AGE = 25
+        self.ASTRO_MAX_AGE = 45
     #getters
     
     def getSHIP_CAPACITY(self):
@@ -83,7 +91,19 @@ class Sim_params:
         
     def getPREG_AGE_MIN(self):
         return self.PREG_AGE_MIN
+    
+    def getSTART_POP(self):
+        return self.START_POP
+    
+    def getTARGET_POP(self):
+        return self.TARGET_POP
+    
+    def getASTRO_MIN_AGE(self):
+        return self.ASTRO_MIN_AGE
         
+    def getASTRO_MAX_AGE(self):
+        return self.ASTRO_MAX_AGE
+    
     # setters
     
     def setSHIP_CAPACITY(self, cap):
@@ -121,3 +141,15 @@ class Sim_params:
         
     def setPREG_AGE_MIN(self, agemin):
         self.PREG_AGE_MIN = agemin
+
+    def setSTART_POP(self, startPop):
+        self.START_POP = startPop
+        
+    def setTARGET_POP(self, targetPop):
+        self.TARGET_POP = targetPop
+        
+    def setASTRO_MIN_AGE(self, minage):
+        self.ASTRO_MIN_AGE = minage
+        
+    def setASTRO_MAX_AGE(self, maxage):
+        self.ASTRO_MAX_AGE = maxage

@@ -63,7 +63,7 @@ class Colonist:
 class Astronaut(Colonist):
     
     def __init__(self, sex, params):
-        Colonist.__init__(self, randint(25,45), sex, params)
+        Colonist.__init__(self, randint(params.getASTRO_MIN_AGE(),params.getASTRO_MAX_AGE()), sex, params)
         
     def getName(self):
         return "Astronaut"

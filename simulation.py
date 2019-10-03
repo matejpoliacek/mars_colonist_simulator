@@ -32,11 +32,13 @@ def simulation(params, label):
     colony = []
     sizes = []
     pregCounter = 0
-
+    
     days = range(0, params.getSIM_LENGTH())
-
-    for day in days:
-        if (day % (26*30) == 0):
+    day = 0
+    
+    while True:
+        
+        if (day % params.getTRAVEL_TIME() == 0):
             colony = colony + arrivalFromEarth(params)
                 
         new_colonists = []
@@ -82,8 +84,18 @@ def simulation(params, label):
         colony = colony + new_colonists
         sizes = sizes + [len(colony)]
         
-        label.setText("Progress: " + str(day+1) + " of " + str(max(days)+1))
-
+        # if specify sim length
+        label.setText("Progress: " + str(day+1) + " of " + str(params.getSIM_LENGTH()))
+        # else
+        # label.setText("Progress: " + str(day)))
+        
+        day = day + 1
+        if (day >= params.getSIM_LENGTH()): # AND specify sim length
+            break
+            
+        # if specify target pop AND target len(colony) >= params.getTARGET_POP():
+        #   break
+        
     for x in colony:
         print(x.getAge(), x.getSex(), x.getName())
         

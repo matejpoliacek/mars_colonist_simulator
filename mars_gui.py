@@ -16,14 +16,19 @@ global params
 params = ps.Sim_params()
 
 global final_list
+final_list = []
 global col_sizes
+col_sizes = []
 
-class MyWindow(QtWidgets.QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
     
     def __init__(self):
-        super(MyWindow,self).__init__()
+        super(MainWindow,self).__init__()
 
         self.ui = uic.loadUi('colonysim.ui',self)
+    
+        self.onlyInt = QIntValidator()
+        self.onlyDouble = QDoubleValidator()
     
         #Pre-fill lineEdits with defaults
         self.ui.lineEdit_simLength.setText(str(params.getSIM_LENGTH()))
@@ -38,6 +43,25 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui.lineEdit_pregThresh.setText(str(params.getPREG_THRESH()))
         self.ui.lineEdit_reproMinAge.setText(str(params.getPREG_AGE_MIN()))
         self.ui.lineEdit_reproMaxAge.setText(str(params.getPREG_AGE_MAX()))
+        self.ui.lineEdit_AstroMinAge.setText(str(params.getASTRO_MIN_AGE()))
+        self.ui.lineEdit_AstroMaxAge.setText(str(params.getASTRO_MAX_AGE()))
+        
+        # Set Validators
+        self.ui.lineEdit_simLength.setValidator(self.onlyInt)
+        self.ui.lineEdit_capacity.setValidator(self.onlyInt)
+        self.ui.lineEdit_arrival.setValidator(self.onlyInt)
+        self.ui.lineEdit_deathThresh.setValidator(self.onlyInt)
+        self.ui.lineEdit_cooldown.setValidator(self.onlyInt)
+        self.ui.lineEdit_maxPreg.setValidator(self.onlyInt)
+        self.ui.lineEdit_newGenPeriod.setValidator(self.onlyInt)
+        self.ui.lineEdit_newGenWindow.setValidator(self.onlyInt)
+        self.ui.lineEdit_pregThresh.setValidator(self.onlyInt)
+        self.ui.lineEdit_reproMinAge.setValidator(self.onlyInt)
+        self.ui.lineEdit_reproMaxAge.setValidator(self.onlyInt)
+        self.ui.lineEdit_AstroMinAge.setValidator(self.onlyInt)
+        self.ui.lineEdit_AstroMaxAge.setValidator(self.onlyInt)
+        
+        self.ui.lineEdit_crewRatio.setValidator(self.onlyDouble)
         
         # Text change functions
         self.calcYears()
@@ -45,9 +69,14 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui.lineEdit_simLength.textChanged.connect(self.calcYears)
         self.ui.lineEdit_capacity.textChanged.connect(self.showCrewRatios)
         self.ui.lineEdit_crewRatio.textChanged.connect(self.showCrewRatios)
+        self.ui.lineEdit_AstroMinAge.textChanged.connect(self.editMinAstronautAge)
+        self.ui.lineEdit_AstroMaxAge.textChanged.connect(self.editMaxAstronautAge)
         
         # Button functions
         self.ui.pushButtonStart.clicked.connect(self.pushButtonStartClicked)
+        self.ui.pushButtonHelp.clicked.connect(self.pushButtonHelpClicked)
+        
+        # TODO: RadioButton fuctions
         
     def set_params(self):
         params.setSIM_LENGTH(int(self.ui.lineEdit_simLength.text()))
@@ -61,7 +90,9 @@ class MyWindow(QtWidgets.QMainWindow):
         params.setPREG_THRESH(int(self.ui.lineEdit_pregThresh.text()))
         params.setPREG_AGE_MIN(int(self.ui.lineEdit_reproMinAge.text()))
         params.setPREG_AGE_MAX(int(self.ui.lineEdit_reproMaxAge.text()))
-    
+        params.setASTRO_MIN_AGE(int(self.ui.lineEdit_AstroMinAge.text()))
+        params.setASTRO_MAX_AGE(int(self.ui.lineEdit_AstroMaxAge.text()))
+        
     def plot_thread(self):
         plt.plot(range(0, params.getSIM_LENGTH()), col_sizes)
         #plt.ion()
@@ -76,10 +107,20 @@ class MyWindow(QtWidgets.QMainWindow):
             
             global final_list
             global col_sizes
+            
+            initSize = len(final_list)
+            
             final_list, col_sizes = sim.simulation(params, self.ui.label_progress)
             
+            finalSize = len(final_list)
+            
             for x in final_list:
-                self.ui.listFinalPop.addItem(str(x.getAge())+" "+str(x.getSex())+", "+str(x.getName()))
+                colonistString = str(x.getAge())+" "+str(x.getSex())+", "+str(x.getName())
+                self.ui.listFinalPop.addItem(colonistString)
+                # TODO: parse colonist string to file
+            
+            self.ui.listSimStages.addItem(str(initSize)+" colonists -> "+str(params.getSIM_LENGTH())+"DAYS -> "+str(finalSize) + " colonists")
+            print(len(final_list), len(col_sizes))
             self.ui.pushButtonStart.setEnabled(True)
             
             plotTh = threading.Thread(target=self.plot_thread, args=[])
@@ -90,7 +131,14 @@ class MyWindow(QtWidgets.QMainWindow):
     
         th = threading.Thread(target=self.simulation_thread, args=[])
         th.start()
+    
+    def pushButtonHelpClicked(self):
         
+        help_window = HelpWindow()
+        help_window.show() 
+        # TODO: prevent multiple help windows open at once
+    
+    
     def calcYears(self):
         text = self.ui.lineEdit_simLength.text()
         
@@ -109,10 +157,44 @@ class MyWindow(QtWidgets.QMainWindow):
             self.ui.label_crewRatioDisplay.setText("= " + str(round(male_crew, 2)) + " M, " + str(round(female_crew, 2)) + " F crew members")
         else: 
             self.ui.label_crewRatioDisplay.setText("= N/A, set ratio")
+
+    def editMinAstronautAge(self):
         
+        min = self.ui.lineEdit_AstroMinAge
+        max = self.ui.lineEdit_AstroMaxAge
+        
+        # TODO this should happen on focus out
+        
+        if int(min.text()) < 0:
+            min.setText("0")
+        
+        if int(min.text()) > int(max.text()):
+            min.setText(max.text())
+
+    def editMaxAstronautAge(self):
+        
+        min = self.ui.lineEdit_AstroMinAge
+        max = self.ui.lineEdit_AstroMaxAge
+        
+        # TODO this should happen on focus out
+        
+        if int(max.text()) < 0:
+            max.setText("0")
+        
+        if int(max.text()) < int(min.text()):
+            max.setText(min.text())
+                
+    
+class HelpWindow(QtWidgets.QMainWindow):
+    
+    def __init__(self):
+        super(HelpWindow,self).__init__()
+
+        self.ui = uic.loadUi('colony_help.ui',self)
+            
 if __name__== '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    window = MyWindow()
+    window = MainWindow()
     window.show() 
 
     sys.exit(app.exec_())
