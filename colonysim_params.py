@@ -30,6 +30,15 @@ global START_POP # population at the start of the simulation
 global TARGET_POP # population to be reached
 global ASTRO_MIN_AGE # minimum age of arriving astronauts
 global ASTRO_MAX_AGE # maximumx age of arriving astronauts
+
+global COLONIST_DEPENDENT_AGE # age until which the colonist requires care
+global COLONIST_PRODUCTIVE_AGE # age from which the colonist is productive
+global COLONIST_ELDERLY_AGE # age from which the colonist is considered elderly
+
+global COLONIST_DEPENDENT_WORK # hours of work provided/consumed by dependent colonist
+global COLONIST_NONPROD_WORK # hours of work provided/consumed by non productive colonist
+global COLONIST_PRODUCTIVE_WORK # hours of work provided/consumed by productive colonist
+global COLONIST_ELDERLY_WORK # hours of work provided/consumed by elderly colonist
 '''      
     
 # Class holding all the parameters
@@ -39,7 +48,7 @@ class Sim_params:
     
     def __init__(self):
         self.SHIP_CAPACITY = 80
-        self.TRAVEL_TIME = 200 
+        self.TRAVEL_TIME = 790 
         self.CREW_RATIO = 1.0
         self.COOLDOWN = 365
         self.MAX_PREG = 100
@@ -54,6 +63,14 @@ class Sim_params:
         self.TARGET_POP = 0
         self.ASTRO_MIN_AGE = 25
         self.ASTRO_MAX_AGE = 45
+        self.COLONIST_DEPENDENT_AGE = 3
+        self.COLONIST_PRODUCTIVE_AGE = 16
+        self.COLONIST_ELDERLY_AGE = 65
+        self.COLONIST_DEPENDENT_WORK = -16
+        self.COLONIST_NONPROD_WORK = 0
+        self.COLONIST_PRODUCTIVE_WORK = 16
+        self.COLONIST_ELDERLY_WORK = 4
+        
     #getters
     
     def getSHIP_CAPACITY(self):
@@ -104,6 +121,27 @@ class Sim_params:
     def getASTRO_MAX_AGE(self):
         return self.ASTRO_MAX_AGE
     
+    def getCOLONIST_DEPENDENT_AGE(self):
+        return self.COLONIST_DEPENDENT_AGE
+        
+    def getCOLONIST_PRODUCTIVE_AGE(self):
+        return self.COLONIST_PRODUCTIVE_AGE
+        
+    def getCOLONIST_ELDERLY_AGE(self):
+        return self.COLONIST_ELDERLY_AGE
+        
+    def getCOLONIST_DEPENDENT_WORK(self):
+        return self.COLONIST_DEPENDENT_WORK
+        
+    def getCOLONIST_NONPROD_WORK(self):
+        return self.COLONIST_NONPROD_WORK
+        
+    def getCOLONIST_PRODUCTIVE_WORK(self):
+        return self.COLONIST_PRODUCTIVE_WORK
+        
+    def getCOLONIST_ELDERLY_WORK(self):
+        return self.COLONIST_ELDERLY_WORK
+            
     # setters
     
     def setSHIP_CAPACITY(self, cap):

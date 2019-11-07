@@ -19,6 +19,10 @@ global final_list
 final_list = []
 global col_sizes
 col_sizes = []
+global crewhrs_list
+crewhrs_list = []
+global elapsed_days
+elapsed_days = 0
 
 class MainWindow(QtWidgets.QMainWindow):
     
@@ -75,6 +79,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Button functions
         self.ui.pushButtonStart.clicked.connect(self.pushButtonStartClicked)
         self.ui.pushButtonHelp.clicked.connect(self.pushButtonHelpClicked)
+        self.ui.pushButtonReset.clicked.connect(self.pushButtonResetClicked)
         
         # TODO: RadioButton fuctions
         
@@ -94,10 +99,21 @@ class MainWindow(QtWidgets.QMainWindow):
         params.setASTRO_MAX_AGE(int(self.ui.lineEdit_AstroMaxAge.text()))
         
     def plot_thread(self):
-        plt.plot(range(0, params.getSIM_LENGTH()), col_sizes)
-        #plt.ion()
+        
+        global col_sizes
+        global crewhrs_list
+        global elapsed_days
+                    
+        xaxis = range(0, elapsed_days)        
+        
+        fig, (ax1, ax2) = plt.subplots(1, 2)
+        fig.suptitle('Settlement Size and Productivity')
+        ax1.plot(xaxis, col_sizes)
+        ax1.set_title('Population')
+        ax2.plot(xaxis, crewhrs_list, 'tab:orange')
+        ax2.set_title('Productivity')
+        
         plt.show()
-        #plt.pause(0.001)
     
     def simulation_thread(self):
             self.ui.pushButtonStart.setEnabled(False)
@@ -107,10 +123,12 @@ class MainWindow(QtWidgets.QMainWindow):
             
             global final_list
             global col_sizes
+            global crewhrs_list
+            global elapsed_days
             
             initSize = len(final_list)
             
-            final_list, col_sizes = sim.simulation(params, self.ui.label_progress)
+            final_list, col_sizes, crewhrs_list = sim.simulation(params, self.ui.label_progress, final_list, col_sizes, crewhrs_list, elapsed_days)
             
             finalSize = len(final_list)
             
@@ -119,8 +137,11 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.ui.listFinalPop.addItem(colonistString)
                 # TODO: parse colonist string to file
             
-            self.ui.listSimStages.addItem(str(initSize)+" colonists -> "+str(params.getSIM_LENGTH())+"DAYS -> "+str(finalSize) + " colonists")
-            print(len(final_list), len(col_sizes))
+            start = elapsed_days
+            elapsed_days = elapsed_days + params.getSIM_LENGTH()
+            
+            self.ui.listSimStages.addItem("D"+str(start)+", "+str(initSize)+" colonists -> "+str(params.getSIM_LENGTH())+" DAYS -> "+"D"+str(elapsed_days)+", "+str(finalSize) + " colonists")
+            #print(len(final_list), len(col_sizes))
             self.ui.pushButtonStart.setEnabled(True)
             
             plotTh = threading.Thread(target=self.plot_thread, args=[])
@@ -138,7 +159,21 @@ class MainWindow(QtWidgets.QMainWindow):
         help_window.show() 
         # TODO: prevent multiple help windows open at once
     
-    
+    def pushButtonResetClicked(self):
+        
+        global final_list
+        global col_sizes
+        global elapsed_days
+        global crewhrs_list
+
+        final_list = []
+        col_sizes = []
+        crewhrs_list = []
+        elapsed_days = 0
+        
+        self.ui.listFinalPop.clear()
+        self.ui.listSimStages.clear()
+        
     def calcYears(self):
         text = self.ui.lineEdit_simLength.text()
         

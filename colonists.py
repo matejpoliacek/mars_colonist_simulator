@@ -20,13 +20,16 @@ class Colonist:
         self.cooldown = 0
         self.params = params
     
-    def getAge(self):
+    def getAgeDays(self):
         return self.age
+    
+    def getAge(self):
+        return (self.age // 365)
     
     def getSex(self):
         return self.sex
     
-    def incAge(self):
+    def incAgeDay(self):
         self.age = self.age+1
     
     def incPregnant(self):
@@ -60,10 +63,23 @@ class Colonist:
     def decCooldown(self):
         self.cooldown = self.cooldown-1
     
+    def getWorkHours(self):
+        ageYrs = self.getAge()
+        if (ageYrs < self.params.getCOLONIST_DEPENDENT_AGE()):
+            return self.params.getCOLONIST_DEPENDENT_WORK()
+        elif (ageYrs < self.params.getCOLONIST_PRODUCTIVE_AGE()):
+            return self.params.getCOLONIST_NONPROD_WORK()
+        elif (ageYrs < self.params.getCOLONIST_ELDERLY_AGE()):
+            return self.params.getCOLONIST_PRODUCTIVE_WORK()
+        else:
+            return self.params.getCOLONIST_ELDERLY_WORK()
+    
+    
 class Astronaut(Colonist):
     
     def __init__(self, sex, params):
-        Colonist.__init__(self, randint(params.getASTRO_MIN_AGE(),params.getASTRO_MAX_AGE()), sex, params)
+        randage = randint(params.getASTRO_MIN_AGE(),params.getASTRO_MAX_AGE()) * 365
+        Colonist.__init__(self, randage, sex, params)
         
     def getName(self):
         return "Astronaut"

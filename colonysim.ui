@@ -118,6 +118,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButtonReset">
+         <property name="text">
+          <string>Reset Simulator</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>

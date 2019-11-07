@@ -10,8 +10,6 @@ import numpy as np
 import colony_util as util
 import colonists as col
 
-
-
 # TODO: move to colony_utils.py
 def arrivalFromEarth(params):
     crew = []
@@ -28,24 +26,23 @@ def arrivalFromEarth(params):
 
     return crew
 
-def simulation(params, label):
-    colony = []
-    sizes = []
+def simulation(params, label, colony, sizes, crewhrs_list, startDay):
+    
     pregCounter = 0
     
-    days = range(0, params.getSIM_LENGTH())
-    day = 0
+    day = startDay
     
     while True:
         
-        if (day % params.getTRAVEL_TIME() == 0):
-            colony = colony + arrivalFromEarth(params)
+        if (params.getTRAVEL_TIME() > 0):
+            if (day % params.getTRAVEL_TIME() == 0):
+                colony = colony + arrivalFromEarth(params)
                 
         new_colonists = []
+        crewhours = 0
         for x in colony:
-            # increase age of everybody by 1
-            if (day % 365 == 0 and day > 0):
-                x.incAge()
+            # increase age of everybody by 1 day
+            x.incAgeDay()
             
             # check dead
             if (x.getAge() > params.getDEATH_THRESH()):
@@ -77,20 +74,24 @@ def simulation(params, label):
                 else:
                     x.decCooldown()
                 
+            # sum crewhours of work
+            crewhours = crewhours + x.getWorkHours()
+                
         # remove dead
         colony[:] = [x for x in colony if not x.isDead()]
             
             
         colony = colony + new_colonists
         sizes = sizes + [len(colony)]
+        crewhrs_list = crewhrs_list + [crewhours]
         
         # if specify sim length
-        label.setText("Progress: " + str(day+1) + " of " + str(params.getSIM_LENGTH()))
+        label.setText("Progress: " + str(day+1-startDay) + " of " + str(params.getSIM_LENGTH()))
         # else
         # label.setText("Progress: " + str(day)))
         
         day = day + 1
-        if (day >= params.getSIM_LENGTH()): # AND specify sim length
+        if (day >= startDay + params.getSIM_LENGTH()): # AND specify sim length
             break
             
         # if specify target pop AND target len(colony) >= params.getTARGET_POP():
@@ -101,7 +102,7 @@ def simulation(params, label):
         
     print(max(sizes))
     
-    return colony, sizes
+    return colony, sizes, crewhrs_list
     '''
     x = Astronaut("m")
     y = Astronaut("f")

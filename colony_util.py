@@ -13,7 +13,7 @@ def checkDeathProb(age):
     
     # draw a random decimal between 0 and 1
     # return true if smaller than the resulting probability
-    return random.random() < prob
+    return (random.random() < prob)
 
 def checkBirthProb(preg):
     
@@ -25,7 +25,7 @@ def checkBirthProb(preg):
     
     # draw a random decimal between 0 and 1
     # return true if smaller than the resulting probability
-    return random.random() < prob
+    return (random.random() < prob)
     
 def ratioCalculator(capacity, ratio):
 
