@@ -34,9 +34,21 @@ def simulation(params, label, colony, sizes, crewhrs_list, startDay):
     
     while True:
         
-        if (params.getTRAVEL_TIME() > 0):
-            if (day % params.getTRAVEL_TIME() == 0):
-                colony = colony + arrivalFromEarth(params)
+        # initial crew
+        if (day == 0):
+            colony = colony + arrivalFromEarth(params)
+        
+        # regular arrivals
+        if (len(params.getARRIVAL_TIMES_REGULAR()) > 0):
+            for item in params.getARRIVAL_TIMES_REGULAR():
+                if (day % item == 0):
+                    colony = colony + arrivalFromEarth(params)
+        
+        # one-off arrivals
+        if (len(params.getARRIVAL_TIMES_ONEOFF()) > 0):
+            noArrivals = params.getARRIVAL_TIMES_ONEOFF().count(day)
+            if (noArrivals > 0):
+                colony = colony + arrivalFromEarth(params)*noArrivals
                 
         new_colonists = []
         crewhours = 0
@@ -47,6 +59,7 @@ def simulation(params, label, colony, sizes, crewhrs_list, startDay):
             # check dead
             if (x.getAge() > params.getDEATH_THRESH()):
                 if util.checkDeathProb(x.getAge()):
+                    # THIS IS NOW CHECKING EVERY DAY AFTER DEATH_THRESH BIRTHDAY, LEADS TO EARLY DEATHS
                     x.setDead()
             
             # model infant death?
@@ -57,7 +70,7 @@ def simulation(params, label, colony, sizes, crewhrs_list, startDay):
             # check for pregnancies
             if (x.getSex() == "f" and x.getAge() < params.getPREG_AGE_MAX() and x.getAge() > params.getPREG_AGE_MIN()):
                 
-                # if 260 days have passed, check if a new colonist is born (logarithmic probabilty, see graph)
+                # if PREG_THRESHOLD days have passed, check if a new colonist is born (logarithmic probabilty, see graph)
                 if (x.getPregnant() >= params.getPREG_THRESH()):
                     if util.checkBirthProb(x.getPregnant()):
                         x.birth()

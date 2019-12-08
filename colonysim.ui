@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>967</width>
-    <height>672</height>
+    <width>1000</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1200</width>
+    <width>1000</width>
     <height>720</height>
    </size>
   </property>
@@ -26,10 +26,13 @@
       <x>10</x>
       <y>10</y>
       <width>932</width>
-      <height>605</height>
+      <height>681</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,0,0">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
      <item>
       <widget class="QLabel" name="result_label">
        <property name="enabled">
@@ -125,6 +128,22 @@
          </property>
         </widget>
        </item>
+       <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </item>
      <item>
@@ -132,188 +151,6 @@
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="14" column="0">
-        <layout class="QFormLayout" name="formLayout_2">
-         <item row="0" column="0">
-          <widget class="QLabel" name="labelCooldown">
-           <property name="text">
-            <string>Cooldown</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_cooldown"/>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="labelMaxPreg">
-           <property name="text">
-            <string>Max Pregnancies</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_maxPreg"/>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="labelNewGenPeriod">
-           <property name="text">
-            <string>New Gen Period</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_newGenPeriod"/>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="labelNewGenWindow">
-           <property name="text">
-            <string>New Gen Window</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit_newGenWindow"/>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="labelPregThresh">
-           <property name="text">
-            <string>Preg Threshold</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEdit_pregThresh"/>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="labelReproMinAge">
-           <property name="text">
-            <string>Repro Min Age</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="lineEdit_reproMinAge"/>
-         </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="labelReproMaxAge">
-           <property name="text">
-            <string>Repro Max Age</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QLineEdit" name="lineEdit_reproMaxAge"/>
-         </item>
-        </layout>
-       </item>
-       <item row="5" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLabel" name="labelTargetPop">
-           <property name="text">
-            <string>Target Population</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit_targetPop"/>
-         </item>
-        </layout>
-       </item>
-       <item row="13" column="0">
-        <widget class="QLabel" name="labelRepro">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Repro Parameters</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
-          <widget class="QLabel" name="labelAstroMinAge">
-           <property name="text">
-            <string>Astronaut Min Age</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit_AstroMinAge">
-           <property name="inputMethodHints">
-            <set>Qt::ImhNone</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="labelAstroMaxAge">
-           <property name="text">
-            <string>Astronaut Max Age</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit_AstroMaxAge"/>
-         </item>
-        </layout>
-       </item>
-       <item row="10" column="0">
-        <layout class="QFormLayout" name="formLayout">
-         <item row="2" column="0">
-          <widget class="QLabel" name="labelCrewRatio">
-           <property name="text">
-            <string>M/F Crew Ratio</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="labelArrival">
-           <property name="text">
-            <string>Arrival Period</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_arrival"/>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_crewRatio"/>
-         </item>
-        </layout>
-       </item>
-       <item row="8" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QLabel" name="labelCapacity">
-             <property name="text">
-              <string>Ship Capacity</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="lineEdit_capacity"/>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_crewRatioDisplay">
-             <property name="text">
-              <string>= 0 M, 0 F crew members</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
        <item row="11" column="0">
         <widget class="QLabel" name="labelLifeHeader">
          <property name="font">
@@ -348,7 +185,21 @@
          </property>
         </widget>
        </item>
-       <item row="46" column="0">
+       <item row="12" column="0">
+        <layout class="QFormLayout" name="formLayout_5">
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelDeathThresh">
+           <property name="text">
+            <string>Death Threshold</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEdit_deathThresh"/>
+         </item>
+        </layout>
+       </item>
+       <item row="48" column="0">
         <widget class="QPushButton" name="pushButtonStart">
          <property name="font">
           <font>
@@ -361,21 +212,87 @@
          </property>
         </widget>
        </item>
-       <item row="45" column="0">
-        <spacer name="verticalSpacer_3">
+       <item row="50" column="0">
+        <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelSimHeader">
+       <item row="5" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="labelTargetPop">
+           <property name="text">
+            <string>Target Population</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_targetPop"/>
+         </item>
+        </layout>
+       </item>
+       <item row="9" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="labelAstroMinAge">
+           <property name="text">
+            <string>Astronaut Min Age</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_AstroMinAge">
+           <property name="inputMethodHints">
+            <set>Qt::ImhNone</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelAstroMaxAge">
+           <property name="text">
+            <string>Astronaut Max Age</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_AstroMaxAge"/>
+         </item>
+        </layout>
+       </item>
+       <item row="4" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="labelSimLength">
+           <property name="text">
+            <string>Sim Length</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_simLength"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_simYears">
+           <property name="text">
+            <string>= 0 years</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="labelTransitHeader">
          <property name="font">
           <font>
            <pointsize>8</pointsize>
@@ -384,7 +301,256 @@
           </font>
          </property>
          <property name="text">
-          <string>Simulation Parameters</string>
+          <string>Transit Parameters</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="labelCapacity">
+             <property name="text">
+              <string>Ship Capacity</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_capacity"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_crewRatioDisplay">
+             <property name="text">
+              <string>= 0 M, 0 F crew members</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item row="10" column="0">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="1" column="1">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QLabel" name="labelArrival">
+               <property name="text">
+                <string>Arrival Period</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_arrival"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonAddArrivalRegular">
+             <property name="text">
+              <string>Add Regular</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonRemoveArrivalRegular">
+             <property name="text">
+              <string>Remove Regular</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonAddArrivalOneOff">
+             <property name="text">
+              <string>Add One Off</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonRemoveArrivalOneOff">
+             <property name="text">
+              <string>Remove One Off</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="2">
+          <layout class="QGridLayout" name="gridLayout_3">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
+           </property>
+           <item row="1" column="1">
+            <widget class="QListWidget" name="list_arrivals_oneOff">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContents</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>One-off Arrivals</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QListWidget" name="list_arrivals_regular">
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContents</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Regular Arrivals</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLabel" name="labelCrewRatio">
+           <property name="text">
+            <string>M/F Crew Ratio</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="2">
+          <widget class="QLineEdit" name="lineEdit_crewRatio"/>
+         </item>
+        </layout>
+       </item>
+       <item row="15" column="0">
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEdit_maxPreg"/>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEdit_newGenPeriod"/>
+         </item>
+         <item row="2" column="2">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="labelNewGenWindow">
+           <property name="text">
+            <string>New Gen Window</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelNewGenPeriod">
+           <property name="text">
+            <string>New Gen Period</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="lineEdit_newGenWindow"/>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLabel" name="labelPregThresh">
+           <property name="text">
+            <string>Preg Threshold</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelMaxPreg">
+           <property name="text">
+            <string>Max Pregnancies</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QLineEdit" name="lineEdit_pregThresh"/>
+         </item>
+         <item row="2" column="3">
+          <widget class="QLabel" name="labelReproMinAge">
+           <property name="text">
+            <string>Repro Min Age</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="4">
+          <widget class="QLineEdit" name="lineEdit_reproMinAge"/>
+         </item>
+         <item row="3" column="3">
+          <widget class="QLabel" name="labelReproMaxAge">
+           <property name="text">
+            <string>Repro Max Age</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="4">
+          <widget class="QLineEdit" name="lineEdit_reproMaxAge"/>
+         </item>
+        </layout>
+       </item>
+       <item row="13" column="0">
+        <widget class="QLabel" name="labelRepro">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Repro Parameters</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -415,29 +581,39 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLabel" name="labelSimLength">
+       <item row="14" column="0">
+        <layout class="QFormLayout" name="formLayout_3">
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelCooldown">
            <property name="text">
-            <string>Sim Length</string>
+            <string>Cooldown</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit_simLength"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_simYears">
-           <property name="text">
-            <string>= 0 years</string>
-           </property>
-          </widget>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEdit_cooldown"/>
          </item>
         </layout>
        </item>
-       <item row="48" column="0">
-        <spacer name="verticalSpacer">
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelSimHeader">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Simulation Parameters</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="46" column="0">
+        <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -449,41 +625,10 @@
          </property>
         </spacer>
        </item>
-       <item row="12" column="0">
-        <layout class="QFormLayout" name="formLayout_5">
-         <item row="0" column="0">
-          <widget class="QLabel" name="labelDeathThresh">
-           <property name="text">
-            <string>Death Threshold</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_deathThresh"/>
-         </item>
-        </layout>
-       </item>
-       <item row="15" column="0">
+       <item row="47" column="0">
         <widget class="QPushButton" name="pushButtonHelp">
          <property name="text">
           <string>HELP</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="labelTransitHeader">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Transit Parameters</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>

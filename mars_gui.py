@@ -37,7 +37,8 @@ class MainWindow(QtWidgets.QMainWindow):
         #Pre-fill lineEdits with defaults
         self.ui.lineEdit_simLength.setText(str(params.getSIM_LENGTH()))
         self.ui.lineEdit_capacity.setText(str(params.getSHIP_CAPACITY()))
-        self.ui.lineEdit_arrival.setText(str(params.getTRAVEL_TIME()))
+        self.ui.list_arrivals_oneOff.addItems(params.getARRIVAL_TIMES_ONEOFF())
+        self.ui.list_arrivals_regular.addItems(params.getARRIVAL_TIMES_REGULAR())
         self.ui.lineEdit_crewRatio.setText(str(params.getCREW_RATIO()))
         self.ui.lineEdit_deathThresh.setText(str(params.getDEATH_THRESH()))
         self.ui.lineEdit_cooldown.setText(str(params.getCOOLDOWN()))
@@ -80,13 +81,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pushButtonStart.clicked.connect(self.pushButtonStartClicked)
         self.ui.pushButtonHelp.clicked.connect(self.pushButtonHelpClicked)
         self.ui.pushButtonReset.clicked.connect(self.pushButtonResetClicked)
+        self.ui.pushButtonAddArrivalOneOff.clicked.connect(self.pushButtonAddArrivalOneOffClicked)
+        self.ui.pushButtonRemoveArrivalOneOff.clicked.connect(self.pushButtonRemoveArrivalOneOffClicked)
+        self.ui.pushButtonAddArrivalRegular.clicked.connect(self.pushButtonAddArrivalRegularClicked)
+        self.ui.pushButtonRemoveArrivalRegular.clicked.connect(self.pushButtonRemoveArrivalRegularClicked)
         
         # TODO: RadioButton fuctions
         
     def set_params(self):
         params.setSIM_LENGTH(int(self.ui.lineEdit_simLength.text()))
         params.setSHIP_CAPACITY(int(self.ui.lineEdit_capacity.text()))
-        params.setTRAVEL_TIME(int(self.ui.lineEdit_arrival.text()))
         params.setDEATH_THRESH(int(self.ui.lineEdit_deathThresh.text()))
         params.setCOOLDOWN(int(self.ui.lineEdit_cooldown.text()))
         params.setMAX_PREG(int(self.ui.lineEdit_maxPreg.text()))
@@ -147,6 +151,38 @@ class MainWindow(QtWidgets.QMainWindow):
             plotTh = threading.Thread(target=self.plot_thread, args=[])
             plotTh.start()
         
+    def pushButtonStartClicked(self):
+    
+        th = threading.Thread(target=self.simulation_thread, args=[])
+        th.start()
+        
+    def pushButtonAddArrivalOneOffClicked(self):
+    
+        params.addARRIVAL_TIMES_ONEOFF(int(self.ui.lineEdit_arrival.text()))
+        
+        self.ui.list_arrivals_oneOff.clear()
+        self.ui.list_arrivals_oneOff.addItems(params.getARRIVAL_TIMES_ONEOFF_asString())
+    
+    def pushButtonRemoveArrivalOneOffClicked(self):
+
+        params.removeARRIVAL_TIMES_ONEOFF(int(self.ui.lineEdit_arrival.text()))
+        
+        self.ui.list_arrivals_oneOff.clear()
+        self.ui.list_arrivals_oneOff.addItems(params.getARRIVAL_TIMES_ONEOFF_asString())
+        
+    def pushButtonAddArrivalRegularClicked(self):
+    
+        params.addARRIVAL_TIMES_REGULAR(int(self.ui.lineEdit_arrival.text()))
+        
+        self.ui.list_arrivals_regular.clear()
+        self.ui.list_arrivals_regular.addItems(params.getARRIVAL_TIMES_REGULAR_asString())
+    
+    def pushButtonRemoveArrivalRegularClicked(self):
+
+        params.removeARRIVAL_TIMES_REGULAR(int(self.ui.lineEdit_arrival.text()))
+        
+        self.ui.list_arrivals_regular.clear()
+        self.ui.list_arrivals_regular.addItems(params.getARRIVAL_TIMES_REGULAR_asString())
     
     def pushButtonStartClicked(self):
     

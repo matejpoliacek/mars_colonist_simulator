@@ -13,7 +13,8 @@ Created on Fri Mar 29 17:28:00 2019
 global SIM_LENGTH # number of days for which the simulation runs
 
 global SHIP_CAPACITY # how many astronauts come with every transit
-global TRAVEL_TIME  # how many days between arrivals
+global ARRIVAL_TIMES_ONEOFF  # when one-off arrivals reach Mars
+global ARRIVAL_TIMES_REGULAR  # when regular arrivals reach Mars
 global CREW_RATIO   # male to female ratio of crew
 
 global DEATH_THRESH # age (years) after which the simulation starts checking for natural death  
@@ -48,7 +49,8 @@ class Sim_params:
     
     def __init__(self):
         self.SHIP_CAPACITY = 80
-        self.TRAVEL_TIME = 790 
+        self.ARRIVAL_TIMES_ONEOFF = [] 
+        self.ARRIVAL_TIMES_REGULAR = [] 
         self.CREW_RATIO = 1.0
         self.COOLDOWN = 365
         self.MAX_PREG = 100
@@ -76,8 +78,25 @@ class Sim_params:
     def getSHIP_CAPACITY(self):
         return self.SHIP_CAPACITY
         
-    def getTRAVEL_TIME(self):
-        return self.TRAVEL_TIME
+    def getARRIVAL_TIMES_ONEOFF(self):
+        return self.ARRIVAL_TIMES_ONEOFF
+        
+    def getARRIVAL_TIMES_ONEOFF_asString(self):
+        str_list = []
+        for item in self.ARRIVAL_TIMES_ONEOFF:
+            str_list.append("Day " + str(item))
+            
+        return str_list
+    
+    def getARRIVAL_TIMES_REGULAR(self):
+        return self.ARRIVAL_TIMES_REGULAR
+        
+    def getARRIVAL_TIMES_REGULAR_asString(self):
+        str_list = []
+        for item in self.ARRIVAL_TIMES_REGULAR:
+            str_list.append("Every " + str(item) + " days")
+            
+        return str_list    
     
     def getCREW_RATIO(self):
         return self.CREW_RATIO
@@ -147,9 +166,33 @@ class Sim_params:
     def setSHIP_CAPACITY(self, cap):
         self.SHIP_CAPACITY = cap
         
-    def setTRAVEL_TIME(self, time):
-        self.TRAVEL_TIME = time
+    def setARRIVAL_TIMES_ONEOFF(self, arrivals):
+        self.ARRIVAL_TIMES_ONEOFF = arrivals
+
+    def addARRIVAL_TIMES_ONEOFF(self, time):
+        self.ARRIVAL_TIMES_ONEOFF.append(time)
+        self.ARRIVAL_TIMES_ONEOFF.sort()
         
+    def removeARRIVAL_TIMES_ONEOFF(self, time):
+        try:
+            self.ARRIVAL_TIMES_ONEOFF.remove(time)
+        except ValueError:
+            pass
+            
+    def setARRIVAL_TIMES_REGULAR(self, arrivals):
+        self.ARRIVAL_TIMES_REGULAR = arrivals
+
+    def addARRIVAL_TIMES_REGULAR(self, time):
+        if not time in self.ARRIVAL_TIMES_REGULAR:
+            self.ARRIVAL_TIMES_REGULAR.append(time)
+            self.ARRIVAL_TIMES_REGULAR.sort()
+        
+    def removeARRIVAL_TIMES_REGULAR(self, time):
+        try:
+            self.ARRIVAL_TIMES_REGULAR.remove(time)
+        except ValueError:
+            pass
+
     def setCREW_RATIO(self, ratio):
         self.CREW_RATIO = ratio
     
