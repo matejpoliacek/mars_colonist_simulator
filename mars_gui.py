@@ -81,11 +81,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pushButtonStart.clicked.connect(self.pushButtonStartClicked)
         self.ui.pushButtonHelp.clicked.connect(self.pushButtonHelpClicked)
         self.ui.pushButtonReset.clicked.connect(self.pushButtonResetClicked)
+        self.ui.pushButtonSaveResult.clicked.connect(self.pushButtonSaveClicked)
         self.ui.pushButtonAddArrivalOneOff.clicked.connect(self.pushButtonAddArrivalOneOffClicked)
         self.ui.pushButtonRemoveArrivalOneOff.clicked.connect(self.pushButtonRemoveArrivalOneOffClicked)
         self.ui.pushButtonAddArrivalRegular.clicked.connect(self.pushButtonAddArrivalRegularClicked)
         self.ui.pushButtonRemoveArrivalRegular.clicked.connect(self.pushButtonRemoveArrivalRegularClicked)
         
+        # Disable buttons
+        self.ui.pushButtonReset.setEnabled(False)
+        self.ui.pushButtonSaveResult.setEnabled(False)
+                
         # TODO: RadioButton fuctions
         
     def set_params(self):
@@ -120,9 +125,7 @@ class MainWindow(QtWidgets.QMainWindow):
         plt.show()
     
     def simulation_thread(self):
-            self.ui.pushButtonStart.setEnabled(False)
-            self.ui.listFinalPop.clear()
-            
+                        
             self.set_params()
             
             global final_list
@@ -139,19 +142,27 @@ class MainWindow(QtWidgets.QMainWindow):
             for x in final_list:
                 colonistString = str(x.getAge())+" "+str(x.getSex())+", "+str(x.getName())
                 self.ui.listFinalPop.addItem(colonistString)
-                # TODO: parse colonist string to file
+                # TODO: parse settler string to file
             
             start = elapsed_days
             elapsed_days = elapsed_days + params.getSIM_LENGTH()
             
-            self.ui.listSimStages.addItem("D"+str(start)+", "+str(initSize)+" colonists -> "+str(params.getSIM_LENGTH())+" DAYS -> "+"D"+str(elapsed_days)+", "+str(finalSize) + " colonists")
+            self.ui.listSimStages.addItem("D"+str(start)+", "+str(initSize)+" settlers -> "+str(params.getSIM_LENGTH())+" DAYS -> "+"D"+str(elapsed_days)+", "+str(finalSize) + " settlers")
             #print(len(final_list), len(col_sizes))
             self.ui.pushButtonStart.setEnabled(True)
             
             plotTh = threading.Thread(target=self.plot_thread, args=[])
             plotTh.start()
+            
+            elapsed_days = elapsed_days + 1 
         
     def pushButtonStartClicked(self):
+    
+        self.ui.pushButtonReset.setEnabled(True)
+        self.ui.pushButtonSaveResult.setEnabled(True)
+        
+        self.ui.pushButtonStart.setEnabled(False)
+        self.ui.listFinalPop.clear()
     
         th = threading.Thread(target=self.simulation_thread, args=[])
         th.start()
@@ -184,17 +195,47 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.list_arrivals_regular.clear()
         self.ui.list_arrivals_regular.addItems(params.getARRIVAL_TIMES_REGULAR_asString())
     
-    def pushButtonStartClicked(self):
-    
-        th = threading.Thread(target=self.simulation_thread, args=[])
-        th.start()
     
     def pushButtonHelpClicked(self):
         
         help_window = HelpWindow()
         help_window.show() 
         # TODO: prevent multiple help windows open at once
-    
+        
+    def pushButtonSaveClicked(self):
+        
+        global final_list
+        global col_sizes
+        global elapsed_days
+        global crewhrs_list    
+        
+        okPressed = True
+        
+        
+        text = ''
+        while (okPressed):
+            if text != '':
+                
+                f_pop = open(text + "_finalPop.txt","w+")
+                f_data = open(text + "_data.txt","w+")
+                
+                f_pop.write("Final_Settlement_Population\n")
+                f_data.write("Elapsed_days,Settlement_size,Crew_hours_available\n")
+                
+                for x in final_list:
+                    colonistString = str(x.getAge())+" "+str(x.getSex())+", "+str(x.getName())+"\n"
+                    f_pop.write(colonistString)
+                
+                for i in range(0, len(col_sizes)):
+                    f_data.write(str(i)+","+str(col_sizes[i])+","+str(crewhrs_list[i])+"\n")
+                
+                f_pop.close()
+                f_data.close()
+                
+                okPressed = False
+            else:
+                text, okPressed = QInputDialog.getText(self, "Save name","Enter name of the saved files (without extension):", QLineEdit.Normal, "")
+            
     def pushButtonResetClicked(self):
         
         global final_list
@@ -210,6 +251,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.listFinalPop.clear()
         self.ui.listSimStages.clear()
         
+        self.ui.pushButtonReset.setEnabled(False)
+        self.ui.pushButtonSaveResult.setEnabled(False)
+        
     def calcYears(self):
         text = self.ui.lineEdit_simLength.text()
         
@@ -223,7 +267,16 @@ class MainWindow(QtWidgets.QMainWindow):
         capacity = self.ui.lineEdit_capacity.text()
         ratio = self.ui.lineEdit_crewRatio.text()
         
-        if ratio and capacity:
+        passed = False
+        
+        try: 
+            int(capacity)
+            float(ratio)
+            passed = True
+        except ValueError:
+            passed = False
+                
+        if (ratio and capacity) and passed:
             male_crew,female_crew = util.ratioCalculator(int(capacity), float(ratio))
             self.ui.label_crewRatioDisplay.setText("= " + str(round(male_crew, 2)) + " M, " + str(round(female_crew, 2)) + " F crew members")
         else: 

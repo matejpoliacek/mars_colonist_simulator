@@ -29,7 +29,6 @@ def arrivalFromEarth(params):
 def simulation(params, label, colony, sizes, crewhrs_list, startDay):
     
     pregCounter = 0
-    
     day = startDay
     
     while True:
@@ -65,12 +64,21 @@ def simulation(params, label, colony, sizes, crewhrs_list, startDay):
             # model infant death?
             
             #check if new generation is due
-            newgen = (day % params.getNEWGEN_PERIOD() < params.getNEWGEN_WINDOW())
+            try:
+                newgen = (day % params.getNEWGEN_PERIOD() < params.getNEWGEN_WINDOW())
+            except:
+                # catch division by 0, in which case the pregnancies are unregulated
+                if (params.getNEWGEN_PERIOD() == 0):
+                    newgen = True
+                else:
+                    # never here
+                    newgen = False
+                    print("Warning: newgen false in except?")
             
             # check for pregnancies
             if (x.getSex() == "f" and x.getAge() < params.getPREG_AGE_MAX() and x.getAge() > params.getPREG_AGE_MIN()):
                 
-                # if PREG_THRESHOLD days have passed, check if a new colonist is born (logarithmic probabilty, see graph)
+                # if PREG_THRESHOLD days have passed, check if a new colonist is born
                 if (x.getPregnant() >= params.getPREG_THRESH()):
                     if util.checkBirthProb(x.getPregnant()):
                         x.birth()
