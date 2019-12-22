@@ -65,11 +65,11 @@ class Colonist:
     
     def getWorkHours(self):
         ageYrs = self.getAge()
-        if (ageYrs < self.params.getCOLONIST_DEPENDENT_AGE()):
+        if (ageYrs < self.params.getCOLONIST_DEPENDENT_AGE_END()):
             return self.params.getCOLONIST_DEPENDENT_WORK()
-        elif (ageYrs < self.params.getCOLONIST_PRODUCTIVE_AGE()):
+        elif (ageYrs < self.params.getCOLONIST_PRODUCTIVE_AGE_START()):
             return self.params.getCOLONIST_NONPROD_WORK()
-        elif (ageYrs < self.params.getCOLONIST_ELDERLY_AGE()):
+        elif (ageYrs < self.params.getCOLONIST_ELDERLY_AGE_START()):
             return self.params.getCOLONIST_PRODUCTIVE_WORK()
         else:
             return self.params.getCOLONIST_ELDERLY_WORK()

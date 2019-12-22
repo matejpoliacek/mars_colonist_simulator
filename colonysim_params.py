@@ -32,9 +32,9 @@ global TARGET_POP # population to be reached
 global ASTRO_MIN_AGE # minimum age of arriving astronauts
 global ASTRO_MAX_AGE # maximumx age of arriving astronauts
 
-global COLONIST_DEPENDENT_AGE # age until which the colonist requires care
-global COLONIST_PRODUCTIVE_AGE # age from which the colonist is productive
-global COLONIST_ELDERLY_AGE # age from which the colonist is considered elderly
+global COLONIST_DEPENDENT_AGE_END # age until which the colonist requires care
+global COLONIST_DEPENDENT_AGE_START # age from which the colonist is productive
+global COLONIST_ELDERLY_AGE_START # age from which the colonist is considered elderly
 
 global COLONIST_DEPENDENT_WORK # hours of work provided/consumed by dependent colonist
 global COLONIST_NONPROD_WORK # hours of work provided/consumed by non productive colonist
@@ -65,9 +65,9 @@ class Sim_params:
         self.TARGET_POP = 0
         self.ASTRO_MIN_AGE = 25
         self.ASTRO_MAX_AGE = 45
-        self.COLONIST_DEPENDENT_AGE = 3
-        self.COLONIST_PRODUCTIVE_AGE = 16
-        self.COLONIST_ELDERLY_AGE = 65
+        self.COLONIST_DEPENDENT_AGE_END = 5
+        self.COLONIST_PRODUCTIVE_AGE_START = 16
+        self.COLONIST_ELDERLY_AGE_START = 65
         self.COLONIST_DEPENDENT_WORK = -16
         self.COLONIST_NONPROD_WORK = 0
         self.COLONIST_PRODUCTIVE_WORK = 16
@@ -140,14 +140,14 @@ class Sim_params:
     def getASTRO_MAX_AGE(self):
         return self.ASTRO_MAX_AGE
     
-    def getCOLONIST_DEPENDENT_AGE(self):
-        return self.COLONIST_DEPENDENT_AGE
+    def getCOLONIST_DEPENDENT_AGE_END(self):
+        return self.COLONIST_DEPENDENT_AGE_END
         
-    def getCOLONIST_PRODUCTIVE_AGE(self):
-        return self.COLONIST_PRODUCTIVE_AGE
+    def getCOLONIST_DEPENDENT_AGE_START(self):
+        return self.COLONIST_DEPENDENT_AGE_START
         
-    def getCOLONIST_ELDERLY_AGE(self):
-        return self.COLONIST_ELDERLY_AGE
+    def getCOLONIST_ELDERLY_AGE_START(self):
+        return self.COLONIST_ELDERLY_AGE_START
         
     def getCOLONIST_DEPENDENT_WORK(self):
         return self.COLONIST_DEPENDENT_WORK
